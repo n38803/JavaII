@@ -17,14 +17,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight=".75"
-            android:hint="Type Text here"
+            android:hint="Type in a City Name"
             android:id="@+id/userInput"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight=".25"
-            android:text="SUBMIT"
+            android:text="SEARCH"
             android:id="@+id/sButton"/>
 
 

@@ -1,5 +1,6 @@
 package android.fullsail.com.javaii_w1;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ListFragment;
 import android.os.Bundle;
@@ -15,13 +16,31 @@ import android.widget.TextView;
 public class MainListFragment extends ListFragment {
 
     public static final String TAG = "MainListFragment.TAG";
+    private OnListClickListener mListener;
     public static MainListFragment newInstance() {
         MainListFragment frag = new MainListFragment();
         return frag;
 
 
+
+
     }
 
+    public interface OnListClickListener{
+        public void displayText (String text);
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        if(activity instanceof  OnListClickListener){
+            mListener = (OnListClickListener) activity;
+
+        } else {
+            throw new IllegalArgumentException("Containing Activity must have OnListListener");
+        }
+    }
 
     @Override
     public void onActivityCreated(Bundle _savedInstanceState) {
@@ -30,9 +49,11 @@ public class MainListFragment extends ListFragment {
 
 
         // Create array from Strings.xml & Assign to adapter
-        String[] testArray = getResources().getStringArray(R.array.testArray);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, testArray);
+        String[] cityArray = getResources().getStringArray(R.array.cityArray);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, cityArray);
         setListAdapter(adapter);
+
+
 
 
     }
@@ -40,12 +61,13 @@ public class MainListFragment extends ListFragment {
     public void onListItemClick(ListView _l, View _v, int _position, long _id) {
 
         // grab string value from current clicked position & post in alert
-        String test = (String)_l.getItemAtPosition(_position);
-        new AlertDialog.Builder(getActivity())
-                .setTitle(R.string.item)
-                .setMessage(getString(R.string.selected, test))
-                .setPositiveButton(R.string.ok, null)
-                .show();
+        String cityFromList = (String)_l.getItemAtPosition(_position);
+        mListener.displayText(cityFromList);
+
+
+
     }
+
+
 
 }
