@@ -166,17 +166,12 @@ public class MyActivity extends Activity implements MainListFragment.OnListClick
 
 
 
-    private void updateDisplay(WeatherLocations weather){
+    private void updateDisplay(Locations location){
 
-        if(weather.getOverview() != null)
+        if(location.getZip() != null)
         {
-            ((TextView) findViewById(R.id.titleView)).setText((weather.getName()));
-            ((TextView) findViewById(R.id.detailView)).setText((
-                    weather.getCountry() +
-                    "\n\nForecast: " + weather.getOverview() +
-                    "\nTemperature: " + weather.getTemp() + " Celsius"
-
-            ));
+            ((TextView) findViewById(R.id.titleView)).setText((location.getName()));
+            ((TextView) findViewById(R.id.detailView)).setText(location.toString());
         }
 
         else {
@@ -208,7 +203,7 @@ public class MyActivity extends Activity implements MainListFragment.OnListClick
 
 
 
-    // display text from List
+    // DISPLAY METHOD - Pulls info from MainListFragment selection
     @Override
     public void displayText(String text) {
 
@@ -227,7 +222,7 @@ public class MyActivity extends Activity implements MainListFragment.OnListClick
 
 
 
-
+    // ASYNCTASK - API query
     private class GetWeatherTask extends AsyncTask<URL, Integer, JSONObject> {
 
         final String TAG = "ASYNCTASK DEBUGGING";
@@ -304,7 +299,7 @@ public class MyActivity extends Activity implements MainListFragment.OnListClick
             Log.i(TAG, "You have made it to post execution");
 
             // this is where you populate your object and push to UI
-            WeatherLocations result = new WeatherLocations(apiData);
+            Locations result = new Locations(apiData);
             updateDisplay(result);
 
         }
