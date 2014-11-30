@@ -1,26 +1,59 @@
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:gravity="center"
     android:weightSum="1">
 
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/list_Fragment"
-        android:layout_width="0dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight=".5">
+        android:weightSum="1"
+        android:orientation="horizontal"
+        android:layout_weight=".20">
 
-    </FrameLayout>
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight=".75"
+            android:hint="Type Text here"
+            android:id="@+id/userInput"/>
 
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/display_fragment"
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight=".5">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight=".25"
+            android:text="SUBMIT"
+            android:id="@+id/sButton"/>
 
-    </FrameLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_weight=".80">
+
+
+        <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/list_Fragment"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".9">
+
+        </FrameLayout>
+
+        <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/display_fragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight=".1">
+
+        </FrameLayout>
+
+    </LinearLayout>
 
 
 </LinearLayout>

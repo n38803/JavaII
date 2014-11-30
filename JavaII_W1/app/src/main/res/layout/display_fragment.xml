@@ -2,18 +2,27 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    android:gravity="center"
+    android:gravity="top"
     android:weightSum="1">
 
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="DISPLAY TEXT HERE"
-        android:id="@+id/displayView"
-        android:layout_gravity="right"
-        android:textAlignment="gravity">
+        android:textSize="20pt"
+        android:text="DISPLAY TITLE HERE"
+        android:id="@+id/titleView">
+
+    </TextView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="12pt"
+        android:text="Display sub-view details here"
+        android:id="@+id/detailView">
 
     </TextView>
 

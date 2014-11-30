@@ -31,8 +31,8 @@ public class DisplayFragment extends Fragment {
         super.onActivityCreated(_savedInstanceState);
 
         // Get our TextView and set some text to it.
-        TextView tv = (TextView)getView().findViewById(R.id.displayView);
-        tv.setText("Hello World!");
+        //TextView tv = (TextView)getView().findViewById(R.id.displayView);
+        //tv.setText("Hello World!");
     }
 
 }

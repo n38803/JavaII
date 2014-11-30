@@ -6,6 +6,8 @@ import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.TextView;
 
 
 public class MyActivity extends Activity {
@@ -26,9 +28,11 @@ public class MyActivity extends Activity {
             FragmentManager mgr = getFragmentManager();
             FragmentTransaction trans = mgr.beginTransaction();
 
-            DisplayFragment frag = DisplayFragment.newInstance();
-            trans.replace(R.id.display_fragment, frag, DisplayFragment.TAG);
+            DisplayFragment displayfrag = DisplayFragment.newInstance();
+            trans.replace(R.id.display_fragment, displayfrag, DisplayFragment.TAG);
             trans.commit();
+
+
         }
 
 
