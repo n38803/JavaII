@@ -77,20 +77,6 @@ public class MyActivity extends Activity implements MainListFragment.OnListClick
         else{
 
             connected = false;
-
-            // initiate alert
-            /*
-            AlertDialog.Builder connection = new AlertDialog.Builder(this);
-
-            // assign alert fields
-            connection.setTitle("WARNING: No Network Detected");
-            connection.setMessage("Full functionality of this application requires data connectivity.  Application capabilities may be limited.");
-
-            AlertDialog alert = connection.create();
-            alert.show();
-            */
-
-
         }
 
         return connected;
@@ -122,11 +108,11 @@ public class MyActivity extends Activity implements MainListFragment.OnListClick
     }
 
     // Creates local storage file
-    public void CreateFile (Locations location) throws IOException{
+    public void createFile (String name, String info) throws IOException{
 
-        String fileName = location.getName();
-        String fileInfo = location.toString();
-        FileOutputStream fos = openFileOutput((fileName + ".txt"), MODE_PRIVATE);
+        String fileName = (name + ".txt");
+        String fileInfo = info;
+        FileOutputStream fos = openFileOutput(fileName, MODE_PRIVATE);
 
         Toast fileSaved = Toast.makeText(getApplicationContext(), ("[ " + fileName + ".txt ] Saved."),
                 Toast.LENGTH_SHORT);
@@ -146,7 +132,8 @@ public class MyActivity extends Activity implements MainListFragment.OnListClick
         String fileName = (file + ".txt");
         FileInputStream fis = openFileInput(fileName);
 
-        if(fileName != null){
+        // conditional to ensure there is a valid file
+        if(fis != null){
             BufferedInputStream bis = new BufferedInputStream(fis);
             StringBuffer b = new StringBuffer();
             while (bis.available() != 0) {
@@ -173,7 +160,7 @@ public class MyActivity extends Activity implements MainListFragment.OnListClick
             AlertDialog storageDialog = noStorage.create();
             storageDialog.show();
 
-            ((TextView) findViewById(R.id.titleView)).setText("Possible local storage:");
+            ((TextView) findViewById(R.id.titleView)).setText("No Data Available.");
         }
 
     }
@@ -278,12 +265,13 @@ public class MyActivity extends Activity implements MainListFragment.OnListClick
         // check data connectivity
         getConnection();
 
-        if (connected = true){
+        if (connected != false){
 
             //  display data from API request
             pullRequest();
+
         }
-        else if (connected = false){
+        else {
 
             // display data from local storage
             readFile(city);
@@ -373,19 +361,31 @@ public class MyActivity extends Activity implements MainListFragment.OnListClick
 
             // this is where you populate your object and push to UI
             Locations result = new Locations(apiData);
-            updateDisplay(result);
+            try {
+                updateDisplay(result);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
 
         }
     }
 
 
 
-    private void updateDisplay(Locations location){
+    private void updateDisplay(Locations location) throws IOException {
 
         if(location.getZip() != null)
         {
-            ((TextView) findViewById(R.id.titleView)).setText((location.getName()));
-            ((TextView) findViewById(R.id.detailView)).setText(location.toString());
+            String name = location.getName();
+            String info = location.toString();
+            ((TextView) findViewById(R.id.titleView)).setText(name);
+            ((TextView) findViewById(R.id.detailView)).setText(info);
+
+
+            // save information displayed to local storage file
+            createFile(name, info);
+
         }
 
         else {
