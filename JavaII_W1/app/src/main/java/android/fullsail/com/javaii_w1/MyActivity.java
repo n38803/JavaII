@@ -375,10 +375,12 @@ public class MyActivity extends Activity implements MainListFragment.OnListClick
 
     private void updateDisplay(Locations location) throws IOException {
 
+        String name = location.getName();
+        String info = location.toString();
+
         if(location.getZip() != null)
         {
-            String name = location.getName();
-            String info = location.toString();
+
             ((TextView) findViewById(R.id.titleView)).setText(name);
             ((TextView) findViewById(R.id.detailView)).setText(info);
 
@@ -393,6 +395,8 @@ public class MyActivity extends Activity implements MainListFragment.OnListClick
              ((TextView) findViewById(R.id.titleView)).setText("ERROR!");
             ((TextView) findViewById(R.id.detailView)).setText("\nQuery: " + city +
                     "\nResult: No location found. Please search again.");
+
+            readFile(name);
 
 
         }
