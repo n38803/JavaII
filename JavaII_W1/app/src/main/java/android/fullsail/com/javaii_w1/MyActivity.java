@@ -11,6 +11,7 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,7 +32,7 @@ public class MyActivity extends Activity implements MainListFragment.OnListClick
 
     final String TAG = "MAIN_ACTIVITY";
 
-    private boolean result = false;
+    private boolean connected;
     public TextView input;
     public Button search;
     public String city;
@@ -41,81 +42,37 @@ public class MyActivity extends Activity implements MainListFragment.OnListClick
 
 
 
+    // Test network connectivity
+    public boolean getConnection() {
 
 
-    // check connection from Custom Helper
-    public boolean checkConnection(CustomConnectivityManager connectionCheck) {
-        if (connectionCheck.connected = true) {
-            result = true;
-            Log.i(TAG, "Connected: " + result);
-        } else {
-            result = false;
-            Log.e(TAG, "Connected: " + result);
-        }
-        return result;
-    }
+        // Getting our connectivity manager.
+        ConnectivityManager mgr = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
 
+// Getting our active network information.
+        NetworkInfo netInfo = mgr.getActiveNetworkInfo();
 
-
-
-
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my);
-
-
-        // ensure there is no saved instance & initiate fragment views
-        if (savedInstanceState == null) {
-
-            // list view fragment
-            MainListFragment listfrag = MainListFragment.newInstance();
-            getFragmentManager().beginTransaction()
-                    .replace(R.id.list_Fragment, listfrag, MainListFragment.TAG).commit();
-
-            // setup fragment manager for display view
-            FragmentManager mgr = getFragmentManager();
-            FragmentTransaction trans = mgr.beginTransaction();
-
-            // display view fragment
-            DisplayFragment displayfrag = DisplayFragment.newInstance();
-            trans.replace(R.id.display_fragment, displayfrag, DisplayFragment.TAG);
-            trans.commit();
-        }
-
-
-
-
-        // TODO: MUST SET PARAMETER TO CHECK CONNECTION
-
-
-
-
-        // assign local views
-        search = (Button) findViewById(R.id.sButton);
-        input = (TextView) findViewById(R.id.userInput);
-
-
-        // event listener for search button
-        search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                //grab user input for query
-                city = input.getText().toString();
-
-                // initiate method to pull from API
-                pullRequest();
-
+        // We have a network connection, but not necessarily a data connection.
+        if(netInfo != null) {
+            if(netInfo.getType() == ConnectivityManager.TYPE_MOBILE) {
+                connected = true;
+            } else if(netInfo.getType() == ConnectivityManager.TYPE_WIFI) {
+                connected = true;
             }
+            if(netInfo.isConnected()) {
+                connected = true;
+            }
+        }
+        else{
 
-        });
+            connected = false;
+        }
 
-
+        return connected;
 
     }
 
+    // assign variables & initiate API request
     public void pullRequest(){
         // initiate API pull
         try {
@@ -140,67 +97,98 @@ public class MyActivity extends Activity implements MainListFragment.OnListClick
     }
 
 
-
-
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.my, menu);
-        return true;
-    }
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_my);
 
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
+        // check connection
+        getConnection();
+
+
+        // ensure there is no saved instance & initiate fragment views
+        if (savedInstanceState == null) {
+
+            // list view fragment
+            MainListFragment listfrag = MainListFragment.newInstance();
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.list_Fragment, listfrag, MainListFragment.TAG).commit();
+
+            // setup fragment manager for display view
+            FragmentManager mgr = getFragmentManager();
+            FragmentTransaction trans = mgr.beginTransaction();
+
+            // display view fragment
+            DisplayFragment displayfrag = DisplayFragment.newInstance();
+            trans.replace(R.id.display_fragment, displayfrag, DisplayFragment.TAG);
+            trans.commit();
         }
-        return super.onOptionsItemSelected(item);
-    }
-
-
-
-
-
-    private void updateDisplay(Locations location){
-
-        if(location.getZip() != null)
-        {
-            ((TextView) findViewById(R.id.titleView)).setText((location.getName()));
-            ((TextView) findViewById(R.id.detailView)).setText(location.toString());
-        }
-
-        else {
+        else{
 
             // initiate alert
-            AlertDialog.Builder invalid = new AlertDialog.Builder(this);
+            AlertDialog.Builder connection = new AlertDialog.Builder(this);
 
             // assign alert fields
-            invalid.setTitle("INVALID LOCATION SETTINGS");
-            invalid.setMessage("Please verify your location search and try again.");
-            invalid.setNeutralButton("Ok", null);
+            connection.setTitle("WARNING");
+            connection.setMessage("Full functionality of this application requires data connectivity & currently we cannot detect a connection type.");
+            connection.setNeutralButton("Ok", null);
 
-            AlertDialog invDialog = invalid.create();
-            invDialog.show();
-
-            ((TextView) findViewById(R.id.titleView)).setText("ERROR!");
-            ((TextView) findViewById(R.id.detailView)).setText("\nQuery: " + city +
-                    "\nResult: No location found. Please search again.");
-
+            AlertDialog alert = connection.create();
+            alert.show();
 
         }
 
+
+
+        // assign local views
+        search = (Button) findViewById(R.id.sButton);
+        input = (TextView) findViewById(R.id.userInput);
+
+
+        // event listener for search button
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                getConnection();
+
+                if (connected = true)
+                {
+                    //grab user input for query
+                    city = input.getText().toString();
+
+                    // initiate method to pull from API
+                    pullRequest();
+                }
+                else {
+
+                    // initiate alert
+                    AlertDialog.Builder noData = new AlertDialog.Builder(v.getContext());
+
+                    // assign alert fields
+                    noData.setTitle("SEARCH CAPABILITY DISABLED");
+                    noData.setMessage("Please verify that you have a valid internet connection and try again.");
+                    noData.setNeutralButton("Ok", null);
+
+                    AlertDialog invDialog = noData.create();
+                    invDialog.show();
+
+                    ((TextView) findViewById(R.id.titleView)).setText("No Network Found");
+                    ((TextView) findViewById(R.id.detailView)).setText("");
+
+
+                }
+
+
+
+            }
+
+        });
+
+
+
     }
-
-
-
-
-
-
 
 
     // DISPLAY METHOD - Pulls info from MainListFragment selection
@@ -208,17 +196,12 @@ public class MyActivity extends Activity implements MainListFragment.OnListClick
     public void displayText(String text) {
 
         // reassign city variable to selected list item
-        city = text;
+            city = text;
 
         //  perform API request based on selection
         pullRequest();
 
     }
-
-
-
-
-
 
 
 
@@ -304,6 +287,64 @@ public class MyActivity extends Activity implements MainListFragment.OnListClick
 
         }
     }
+
+
+
+    private void updateDisplay(Locations location){
+
+        if(location.getZip() != null)
+        {
+            ((TextView) findViewById(R.id.titleView)).setText((location.getName()));
+            ((TextView) findViewById(R.id.detailView)).setText(location.toString());
+        }
+
+        else {
+
+            // initiate alert
+            AlertDialog.Builder invalid = new AlertDialog.Builder(this);
+
+            // assign alert fields
+            invalid.setTitle("INVALID LOCATION SETTINGS");
+            invalid.setMessage("Please verify your location search and try again.");
+            invalid.setNeutralButton("Ok", null);
+
+            AlertDialog invDialog = invalid.create();
+            invDialog.show();
+
+            ((TextView) findViewById(R.id.titleView)).setText("ERROR!");
+            ((TextView) findViewById(R.id.detailView)).setText("\nQuery: " + city +
+                    "\nResult: No location found. Please search again.");
+
+
+        }
+
+    }
+
+
+
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.my, menu);
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
 
 }
 
