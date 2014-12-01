@@ -66,6 +66,17 @@ public class MyActivity extends Activity implements MainListFragment.OnListClick
         else{
 
             connected = false;
+
+            // initiate alert
+            AlertDialog.Builder connection = new AlertDialog.Builder(this);
+
+            // assign alert fields
+            connection.setTitle("WARNING: No Network Detected");
+            connection.setMessage("Full functionality of this application requires data connectivity.  Application capabilities may be limited.");
+
+            AlertDialog alert = connection.create();
+            alert.show();
+
         }
 
         return connected;
@@ -126,16 +137,7 @@ public class MyActivity extends Activity implements MainListFragment.OnListClick
         }
         else{
 
-            // initiate alert
-            AlertDialog.Builder connection = new AlertDialog.Builder(this);
 
-            // assign alert fields
-            connection.setTitle("WARNING");
-            connection.setMessage("Full functionality of this application requires data connectivity & currently we cannot detect a connection type.");
-            connection.setNeutralButton("Ok", null);
-
-            AlertDialog alert = connection.create();
-            alert.show();
 
         }
 
@@ -161,7 +163,7 @@ public class MyActivity extends Activity implements MainListFragment.OnListClick
                     // initiate method to pull from API
                     pullRequest();
                 }
-                else {
+                else if (connected = false){
 
                     // initiate alert
                     AlertDialog.Builder noData = new AlertDialog.Builder(v.getContext());
@@ -300,18 +302,7 @@ public class MyActivity extends Activity implements MainListFragment.OnListClick
 
         else {
 
-            // initiate alert
-            AlertDialog.Builder invalid = new AlertDialog.Builder(this);
-
-            // assign alert fields
-            invalid.setTitle("INVALID LOCATION SETTINGS");
-            invalid.setMessage("Please verify your location search and try again.");
-            invalid.setNeutralButton("Ok", null);
-
-            AlertDialog invDialog = invalid.create();
-            invDialog.show();
-
-            ((TextView) findViewById(R.id.titleView)).setText("ERROR!");
+             ((TextView) findViewById(R.id.titleView)).setText("ERROR!");
             ((TextView) findViewById(R.id.detailView)).setText("\nQuery: " + city +
                     "\nResult: No location found. Please search again.");
 
