@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.io.IOException;
+
 /**
  * Created by Shaun on 11/30/2014.
  */
@@ -27,7 +29,7 @@ public class MainListFragment extends ListFragment {
     }
 
     public interface OnListClickListener{
-        public void displayText (String text);
+        public void displayText (String text) throws IOException;
     }
 
     @Override
@@ -62,8 +64,11 @@ public class MainListFragment extends ListFragment {
 
         // grab string value from current clicked position & post in alert
         String cityFromList = (String)_l.getItemAtPosition(_position);
-        mListener.displayText(cityFromList);
-
+        try {
+            mListener.displayText(cityFromList);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
 
     }

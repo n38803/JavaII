@@ -23,6 +23,12 @@ import android.widget.Toast;
 import org.apache.commons.io.IOUtils;
 import org.json.JSONObject;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -45,22 +51,27 @@ public class MyActivity extends Activity implements MainListFragment.OnListClick
     // Test network connectivity
     public boolean getConnection() {
 
-
-        // Getting our connectivity manager.
+        // Grab connectivity manager
         ConnectivityManager mgr = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
 
-// Getting our active network information.
+        // Get active network info
         NetworkInfo netInfo = mgr.getActiveNetworkInfo();
 
-        // We have a network connection, but not necessarily a data connection.
+        // determine what type of connections are available
         if(netInfo != null) {
             if(netInfo.getType() == ConnectivityManager.TYPE_MOBILE) {
+
                 connected = true;
+
             } else if(netInfo.getType() == ConnectivityManager.TYPE_WIFI) {
+
                 connected = true;
+
             }
             if(netInfo.isConnected()) {
+
                 connected = true;
+
             }
         }
         else{
@@ -68,6 +79,7 @@ public class MyActivity extends Activity implements MainListFragment.OnListClick
             connected = false;
 
             // initiate alert
+            /*
             AlertDialog.Builder connection = new AlertDialog.Builder(this);
 
             // assign alert fields
@@ -76,6 +88,8 @@ public class MyActivity extends Activity implements MainListFragment.OnListClick
 
             AlertDialog alert = connection.create();
             alert.show();
+            */
+
 
         }
 
@@ -107,6 +121,64 @@ public class MyActivity extends Activity implements MainListFragment.OnListClick
         }
     }
 
+    // Creates local storage file
+    public void CreateFile (Locations location) throws IOException{
+
+        String fileName = location.getName();
+        String fileInfo = location.toString();
+        FileOutputStream fos = openFileOutput((fileName + ".txt"), MODE_PRIVATE);
+
+        Toast fileSaved = Toast.makeText(getApplicationContext(), ("[ " + fileName + ".txt ] Saved."),
+                Toast.LENGTH_SHORT);
+        fileSaved.setGravity(Gravity.BOTTOM|Gravity.LEFT, 200, 800);
+        fileSaved.show();
+
+
+        fos.write(fileInfo.getBytes());
+        fos.close();
+
+    }
+
+
+    public void readFile(String file) throws IOException{
+
+
+        String fileName = (file + ".txt");
+        FileInputStream fis = openFileInput(fileName);
+
+        if(fileName != null){
+            BufferedInputStream bis = new BufferedInputStream(fis);
+            StringBuffer b = new StringBuffer();
+            while (bis.available() != 0) {
+                char c = (char) bis.read();
+                b.append(c);
+            }
+
+            // display text
+            ((TextView) findViewById(R.id.titleView)).setText(file);
+            ((TextView) findViewById(R.id.detailView)).setText(b.toString());
+
+            bis.close();
+            fis.close();
+        }
+        else{
+            // initiate alert
+            AlertDialog.Builder noStorage = new AlertDialog.Builder(this);
+
+            // assign alert fields
+            noStorage.setTitle("NO LOCAL STORAGE");
+            noStorage.setMessage("You do not have data stored. Please connect to the internet and try again.");
+            noStorage.setNeutralButton("Ok", null);
+
+            AlertDialog storageDialog = noStorage.create();
+            storageDialog.show();
+
+            ((TextView) findViewById(R.id.titleView)).setText("Possible local storage:");
+        }
+
+    }
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,6 +188,7 @@ public class MyActivity extends Activity implements MainListFragment.OnListClick
 
         // check connection
         getConnection();
+        Log.i(TAG, "CONNECTION STATUS MAIN: " + connected);
 
 
         // ensure there is no saved instance & initiate fragment views
@@ -135,11 +208,7 @@ public class MyActivity extends Activity implements MainListFragment.OnListClick
             trans.replace(R.id.display_fragment, displayfrag, DisplayFragment.TAG);
             trans.commit();
         }
-        else{
 
-
-
-        }
 
 
 
@@ -154,8 +223,9 @@ public class MyActivity extends Activity implements MainListFragment.OnListClick
             public void onClick(View v) {
 
                 getConnection();
+                Log.i(TAG, "CONNECTION STATUS ON-SEARCH: " + connected);
 
-                if (connected = true)
+                if (connected != false)
                 {
                     //grab user input for query
                     city = input.getText().toString();
@@ -163,7 +233,7 @@ public class MyActivity extends Activity implements MainListFragment.OnListClick
                     // initiate method to pull from API
                     pullRequest();
                 }
-                else if (connected = false){
+                else {
 
                     // initiate alert
                     AlertDialog.Builder noData = new AlertDialog.Builder(v.getContext());
@@ -173,11 +243,16 @@ public class MyActivity extends Activity implements MainListFragment.OnListClick
                     noData.setMessage("Please verify that you have a valid internet connection and try again.");
                     noData.setNeutralButton("Ok", null);
 
-                    AlertDialog invDialog = noData.create();
-                    invDialog.show();
+                    AlertDialog dataDialog = noData.create();
+                    dataDialog.show();
 
-                    ((TextView) findViewById(R.id.titleView)).setText("No Network Found");
-                    ((TextView) findViewById(R.id.detailView)).setText("");
+                    ((TextView) findViewById(R.id.titleView)).setText("No Connected Detected.");
+
+                    // identify local storage path
+                    File f = getFilesDir();
+                    String path = f.getAbsolutePath();
+                    ((TextView) findViewById(R.id.detailView)).setText("\nPossible Local Storage:\n" + path);
+
 
 
                 }
@@ -195,13 +270,26 @@ public class MyActivity extends Activity implements MainListFragment.OnListClick
 
     // DISPLAY METHOD - Pulls info from MainListFragment selection
     @Override
-    public void displayText(String text) {
+    public void displayText(String text) throws IOException {
 
         // reassign city variable to selected list item
             city = text;
 
-        //  perform API request based on selection
-        pullRequest();
+        // check data connectivity
+        getConnection();
+
+        if (connected = true){
+
+            //  display data from API request
+            pullRequest();
+        }
+        else if (connected = false){
+
+            // display data from local storage
+            readFile(city);
+
+        }
+
 
     }
 
