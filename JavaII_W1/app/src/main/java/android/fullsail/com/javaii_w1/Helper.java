@@ -10,6 +10,7 @@ import android.view.Gravity;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.io.BufferedInputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -24,9 +25,10 @@ public class Helper extends Activity {
 
 
     boolean connected;
+    String detailInfo;
     Context mContext;
 
-    final String TAG = "HELPER CLASS";
+    final String TAG = "DEBUG";
 
 
     public Helper (Context mContext){
@@ -81,11 +83,17 @@ public class Helper extends Activity {
         String fileInfo = info;
         FileOutputStream fos = mContext.openFileOutput(fileName, mContext.MODE_PRIVATE);
 
-        Toast fileSaved = Toast.makeText(mContext.getApplicationContext(), ("[ " + fileName + ".txt ] Saved."),
-                Toast.LENGTH_SHORT);
-        fileSaved.setGravity(Gravity.BOTTOM|Gravity.LEFT, 200, 800);
-        fileSaved.show();
+        Log.e(TAG, "CREATE FileName: " + fileName + " / Info: " + info);
 
+        if (fos != null)
+        {
+            Toast fileSaved = Toast.makeText(mContext.getApplicationContext(), ("[ " + fileName + " ] Saved."),
+                    Toast.LENGTH_SHORT);
+            fileSaved.setGravity(Gravity.BOTTOM|Gravity.LEFT, 200, 800);
+            fileSaved.show();
+
+
+        }
 
         fos.write(fileInfo.getBytes());
         fos.close();
@@ -93,11 +101,12 @@ public class Helper extends Activity {
     }
 
     // Retrieves local storage file
-    public void readFile(String file) throws IOException{
+    public String readFile(String file) throws IOException{
 
 
         String fileName = (file + ".txt");
         FileInputStream fis = mContext.openFileInput(fileName);
+
 
         // conditional to ensure there is a valid file
         if(fis != null){
@@ -108,27 +117,15 @@ public class Helper extends Activity {
                 b.append(c);
             }
 
-            // display text
-            ((TextView) findViewById(R.id.titleView)).setText(file);
-            ((TextView) findViewById(R.id.detailView)).setText(b.toString());
+            detailInfo = b.toString();
+            Log.e(TAG, "READ FileName: " + file + " / Info: " + detailInfo);
 
             bis.close();
             fis.close();
+
         }
-        else{
-            // initiate alert
-            AlertDialog.Builder noStorage = new AlertDialog.Builder(this.mContext);
 
-            // assign alert fields
-            noStorage.setTitle("NO LOCAL STORAGE");
-            noStorage.setMessage("You do not have data stored. Please connect to the internet and try again.");
-            noStorage.setNeutralButton("Ok", null);
-
-            AlertDialog storageDialog = noStorage.create();
-            storageDialog.show();
-
-            ((TextView) findViewById(R.id.titleView)).setText("No Data Available.");
-        }
+        return detailInfo;
 
     }
 

@@ -4,12 +4,14 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ListFragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.io.File;
 import java.io.IOException;
 
 /**
@@ -17,7 +19,7 @@ import java.io.IOException;
  */
 public class MainListFragment extends ListFragment {
 
-    public static final String TAG = "MainListFragment.TAG";
+    public static final String TAG = "DEBUG";
     private OnListClickListener mListener;
     public static MainListFragment newInstance() {
         MainListFragment frag = new MainListFragment();
@@ -56,14 +58,13 @@ public class MainListFragment extends ListFragment {
         setListAdapter(adapter);
 
 
-
-
     }
     @Override
     public void onListItemClick(ListView _l, View _v, int _position, long _id) {
 
         // grab string value from current clicked position & post in alert
         String cityFromList = (String)_l.getItemAtPosition(_position);
+        Log.e(TAG, "CLICKED: " + cityFromList);
         try {
             mListener.displayText(cityFromList);
         } catch (IOException e) {

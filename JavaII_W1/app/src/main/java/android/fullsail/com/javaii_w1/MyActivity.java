@@ -23,7 +23,7 @@ import java.net.URL;
 
 public class MyActivity extends Activity implements MainListFragment.OnListClickListener {
 
-    final String TAG = "MAIN_ACTIVITY";
+    final String TAG = "DEBUG";
 
     private boolean connected;
     public TextView input;
@@ -42,7 +42,7 @@ public class MyActivity extends Activity implements MainListFragment.OnListClick
         Helper testConnection = new Helper(this);
         connected = testConnection.getConnection();
 
-        Log.i(TAG, "Helper Class Connection: " + testConnection);
+        Log.i(TAG, "Helper Class Connection: " + connected);
 
     }
 
@@ -134,7 +134,7 @@ public class MyActivity extends Activity implements MainListFragment.OnListClick
                     AlertDialog dataDialog = noData.create();
                     dataDialog.show();
 
-                    ((TextView) findViewById(R.id.titleView)).setText("No Connected Detected.");
+                    ((TextView) findViewById(R.id.titleView)).setText("No Connection Detected.");
 
                     // identify local storage path
                     File f = getFilesDir();
@@ -162,6 +162,7 @@ public class MyActivity extends Activity implements MainListFragment.OnListClick
 
         // reassign city variable to selected list item
             city = text;
+            Log.e(TAG, "CITY = " + city);
 
         // check data connectivity
         getConnection();
@@ -174,12 +175,28 @@ public class MyActivity extends Activity implements MainListFragment.OnListClick
         }
         else {
 
-            // ORIGINAL display data from local storage
-            // readFile(city);
-
             // Assign context to helper class & run method
             Helper readFile = new Helper(this);
-            readFile.readFile(city);
+
+            String details = readFile.readFile(city);
+
+            TextView titleV = (TextView) findViewById(R.id.titleView);
+            TextView detailV = (TextView) findViewById(R.id.detailView);
+
+            if (details != null)
+            {
+                titleV.setText(city);
+                detailV.setText(details);
+            }
+            else if (details.equals(""))
+            {
+                titleV.setText(city + ".txt Not Found!");
+                detailV.setText("Please verify your directory is correct & try again.");
+            }
+
+
+
+
 
 
 
