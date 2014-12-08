@@ -50,37 +50,13 @@ public class MyActivity extends Activity implements MainListFragment.OnListClick
 
 
     // Test network connectivity
-    public boolean getConnection() {
+    public void getConnection() {
 
-        // Grab connectivity manager
-        ConnectivityManager mgr = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+        // Assign context to helper class & run method
+        Helper testConnection = new Helper(this);
+        connected = testConnection.getConnection();
 
-        // Get active network info
-        NetworkInfo netInfo = mgr.getActiveNetworkInfo();
-
-        // determine what type of connections are available
-        if(netInfo != null) {
-            if(netInfo.getType() == ConnectivityManager.TYPE_MOBILE) {
-
-                connected = true;
-
-            } else if(netInfo.getType() == ConnectivityManager.TYPE_WIFI) {
-
-                connected = true;
-
-            }
-            if(netInfo.isConnected()) {
-
-                connected = true;
-
-            }
-        }
-        else{
-
-            connected = false;
-        }
-
-        return connected;
+        Log.i(TAG, "Helper Class Connection: " + testConnection);
 
     }
 
@@ -174,9 +150,8 @@ public class MyActivity extends Activity implements MainListFragment.OnListClick
         setContentView(R.layout.activity_my);
 
 
-        // check connection
+        // Run Connection Check method (App Creation)
         getConnection();
-        Log.i(TAG, "CONNECTION STATUS MAIN: " + connected);
 
 
         // ensure there is no saved instance & initiate fragment views
@@ -196,12 +171,7 @@ public class MyActivity extends Activity implements MainListFragment.OnListClick
             trans.replace(R.id.display_fragment, displayfrag, DisplayFragment.TAG);
             trans.commit();
 
-            // change background of display fragment to GREEN
-            //displayfrag.getView().setBackgroundColor(Color.GREEN);
         }
-
-
-
 
         // assign local views
         search = (Button) findViewById(R.id.sButton);
