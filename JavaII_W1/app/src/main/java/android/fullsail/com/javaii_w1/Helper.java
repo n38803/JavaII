@@ -22,7 +22,8 @@ import java.io.IOException;
 
 public class Helper extends Activity {
 
-    public boolean connected;
+
+    boolean connected;
     Context mContext;
 
     final String TAG = "HELPER CLASS";
@@ -36,7 +37,7 @@ public class Helper extends Activity {
     // Test network connectivity
     public boolean getConnection() {
 
-        Log.d(TAG, "Connected: " + connected);
+
 
         // Grab connectivity manager
         ConnectivityManager mgr = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -44,7 +45,31 @@ public class Helper extends Activity {
         // Get active network info
         NetworkInfo netInfo = mgr.getActiveNetworkInfo();
 
-        return netInfo.isConnected();
+        // determine what type of connections are available
+        if(netInfo != null) {
+            if(netInfo.getType() == ConnectivityManager.TYPE_MOBILE) {
+
+                connected = true;
+
+            } else if(netInfo.getType() == ConnectivityManager.TYPE_WIFI) {
+
+                connected = true;
+
+            }
+            if(netInfo.isConnected()) {
+
+                connected = true;
+
+            }
+        }
+        else{
+
+            connected = false;
+        }
+
+        return connected;
+
+
 
     }
 
