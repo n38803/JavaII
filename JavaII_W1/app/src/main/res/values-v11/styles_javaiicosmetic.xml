@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Generated with http://android-holo-colors.com -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <style name="AutoCompleteTextViewJavaIICosmetic" parent="android:Widget.Holo.Light.AutoCompleteTextView">
+      <item name="android:dropDownSelector">@drawable/javaiicosmetic_list_selector_holo_light</item>
+	    <item name="android:background">@drawable/javaiicosmetic_edit_text_holo_light</item>
+  </style>
+
+  <style name="ButtonJavaIICosmetic" parent="android:Widget.Holo.Light.Button">
+	  <item name="android:background">@drawable/javaiicosmetic_btn_default_holo_light</item>
+  </style>
+
+  <style name="ImageButtonJavaIICosmetic" parent="android:Widget.Holo.Light.ImageButton">
+	  <item name="android:background">@drawable/javaiicosmetic_btn_default_holo_light</item>
+  </style>
+
+  <style name="SpinnerJavaIICosmetic" parent="android:Widget.Holo.Light.Spinner">
+      <item name="android:background">@drawable/javaiicosmetic_spinner_background_holo_light</item>
+      <item name="android:dropDownSelector">@drawable/javaiicosmetic_list_selector_holo_light</item>
+  </style>
+
+  <style name="ProgressBarJavaIICosmetic" parent="android:Widget.Holo.Light.ProgressBar.Horizontal">
+      <item name="android:progressDrawable">@drawable/javaiicosmetic_progress_horizontal_holo_light</item>
+      <item name="android:indeterminateDrawable">@drawable/javaiicosmetic_progress_indeterminate_horizontal_holo_light</item>
+  </style>
+
+  <style name="SeekBarJavaIICosmetic" parent="android:Widget.Holo.Light.SeekBar">
+      <item name="android:progressDrawable">@drawable/javaiicosmetic_scrubber_progress_horizontal_holo_light</item>
+      <item name="android:indeterminateDrawable">@drawable/javaiicosmetic_scrubber_progress_horizontal_holo_light</item>
+      <item name="android:thumb">@drawable/javaiicosmetic_scrubber_control_selector_holo_light</item>
+  </style>
+
+  <style name="RatingBarJavaIICosmetic" parent="android:Widget.Holo.Light.RatingBar">
+      <item name="android:progressDrawable">@drawable/javaiicosmetic_ratingbar_full_holo_light</item>
+      <item name="android:indeterminateDrawable">@drawable/javaiicosmetic_ratingbar_full_holo_light</item>
+  </style>
+
+  <style name="RatingBarBigJavaIICosmetic" parent="android:Widget.Holo.Light.RatingBar.Indicator">
+      <item name="android:progressDrawable">@drawable/javaiicosmetic_ratingbar_holo_light</item>
+      <item name="android:indeterminateDrawable">@drawable/javaiicosmetic_ratingbar_holo_light</item>
+  </style>
+
+  <style name="RatingBarSmallJavaIICosmetic" parent="android:Widget.Holo.Light.RatingBar.Small">
+      <item name="android:progressDrawable">@drawable/javaiicosmetic_ratingbar_small_holo_light</item>
+      <item name="android:indeterminateDrawable">@drawable/javaiicosmetic_ratingbar_small_holo_light</item>
+  </style>
+
+  <style name="ToggleJavaIICosmetic" parent="android:Widget.Holo.Light.Button.Toggle">
+      <item name="android:background">@drawable/javaiicosmetic_btn_toggle_holo_light</item>
+  </style>
+
+</resources>

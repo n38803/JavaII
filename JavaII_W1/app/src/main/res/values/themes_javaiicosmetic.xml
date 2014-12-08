@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Generated with http://android-holo-colors.com -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <style name="JavaIICosmetic" parent="@style/_JavaIICosmetic"/>
+
+  <style name="_JavaIICosmetic" parent="Theme.AppCompat.Light">
+
+    <item name="android:editTextStyle">@style/EditTextJavaIICosmetic</item>
+
+    <item name="android:textColorHighlight">#99ffbb33</item>
+
+    <item name="android:autoCompleteTextViewStyle">@style/AutoCompleteTextViewJavaIICosmetic</item>
+
+    <item name="android:checkboxStyle">@style/CheckBoxJavaIICosmetic</item>
+
+    <item name="android:radioButtonStyle">@style/RadioButtonJavaIICosmetic</item>
+
+    <item name="android:buttonStyle">@style/ButtonJavaIICosmetic</item>
+
+    <item name="android:imageButtonStyle">@style/ImageButtonJavaIICosmetic</item>
+
+    <item name="android:spinnerStyle">@style/SpinnerJavaIICosmetic</item>
+
+    <item name="android:spinnerDropDownItemStyle">@style/SpinnerDropDownItemJavaIICosmetic</item>
+
+    <item name="android:progressBarStyleHorizontal">@style/ProgressBarJavaIICosmetic</item>
+
+    <item name="android:seekBarStyle">@style/SeekBarJavaIICosmetic</item>
+
+    <item name="android:ratingBarStyle">@style/RatingBarJavaIICosmetic</item>
+
+    <item name="android:ratingBarStyleIndicator">@style/RatingBarBigJavaIICosmetic</item>
+
+    <item name="android:ratingBarStyleSmall">@style/RatingBarSmallJavaIICosmetic</item>
+
+    <item name="android:buttonStyleToggle">@style/ToggleJavaIICosmetic</item>
+
+    <item name="android:listViewStyle">@style/ListViewJavaIICosmetic</item>
+
+    <item name="android:listViewWhiteStyle">@style/ListViewJavaIICosmetic.White</item>
+
+    <item name="android:spinnerItemStyle">@style/SpinnerItemJavaIICosmetic</item>
+
+  </style>
+
+</resources>
