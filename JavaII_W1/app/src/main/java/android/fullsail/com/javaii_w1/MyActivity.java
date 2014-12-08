@@ -6,6 +6,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ListFragment;
 import android.content.Context;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -194,6 +195,9 @@ public class MyActivity extends Activity implements MainListFragment.OnListClick
             DisplayFragment displayfrag = DisplayFragment.newInstance();
             trans.replace(R.id.display_fragment, displayfrag, DisplayFragment.TAG);
             trans.commit();
+
+            // change background of display fragment to GREEN
+            //displayfrag.getView().setBackgroundColor(Color.GREEN);
         }
 
 

@@ -8,6 +8,8 @@
     <string name="selected">You selected\n%1$s.</string>
     <string name="ok">OK</string>
 
+    <string name="detail">I have constructed this portion to exhibit the component background of this fragment.</string>
+
     <array name="cityArray">
         <item>Allentown</item>
         <item>Chester</item>

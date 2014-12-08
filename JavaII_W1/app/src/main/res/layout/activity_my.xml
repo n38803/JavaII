@@ -41,7 +41,8 @@
             android:id="@+id/list_Fragment"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight=".9">
+            android:layout_weight=".9"
+            android:background="#ff280bff">
 
         </FrameLayout>
 
@@ -49,7 +50,8 @@
             android:id="@+id/display_fragment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight=".1">
+            android:layout_weight=".1"
+            android:background="#ff5cff6f">
 
         </FrameLayout>
 
