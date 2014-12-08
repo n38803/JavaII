@@ -4,15 +4,9 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.app.ListFragment;
-import android.content.Context;
-import android.graphics.Color;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Display;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -83,65 +77,6 @@ public class MyActivity extends Activity implements MainListFragment.OnListClick
 
         }
     }
-
-    // Creates local storage file
-    public void createFile (String name, String info) throws IOException{
-
-        String fileName = (name + ".txt");
-        String fileInfo = info;
-        FileOutputStream fos = openFileOutput(fileName, MODE_PRIVATE);
-
-        Toast fileSaved = Toast.makeText(getApplicationContext(), ("[ " + fileName + ".txt ] Saved."),
-                Toast.LENGTH_SHORT);
-        fileSaved.setGravity(Gravity.BOTTOM|Gravity.LEFT, 200, 800);
-        fileSaved.show();
-
-
-        fos.write(fileInfo.getBytes());
-        fos.close();
-
-    }
-
-
-    public void readFile(String file) throws IOException{
-
-
-        String fileName = (file + ".txt");
-        FileInputStream fis = openFileInput(fileName);
-
-        // conditional to ensure there is a valid file
-        if(fis != null){
-            BufferedInputStream bis = new BufferedInputStream(fis);
-            StringBuffer b = new StringBuffer();
-            while (bis.available() != 0) {
-                char c = (char) bis.read();
-                b.append(c);
-            }
-
-            // display text
-            ((TextView) findViewById(R.id.titleView)).setText(file);
-            ((TextView) findViewById(R.id.detailView)).setText(b.toString());
-
-            bis.close();
-            fis.close();
-        }
-        else{
-            // initiate alert
-            AlertDialog.Builder noStorage = new AlertDialog.Builder(this);
-
-            // assign alert fields
-            noStorage.setTitle("NO LOCAL STORAGE");
-            noStorage.setMessage("You do not have data stored. Please connect to the internet and try again.");
-            noStorage.setNeutralButton("Ok", null);
-
-            AlertDialog storageDialog = noStorage.create();
-            storageDialog.show();
-
-            ((TextView) findViewById(R.id.titleView)).setText("No Data Available.");
-        }
-
-    }
-
 
 
     @Override
@@ -247,8 +182,14 @@ public class MyActivity extends Activity implements MainListFragment.OnListClick
         }
         else {
 
-            // display data from local storage
-            readFile(city);
+            // ORIGINAL display data from local storage
+            // readFile(city);
+
+            // Assign context to helper class & run method
+            Helper readFile = new Helper(this);
+            readFile.readFile(city);
+
+
 
         }
 
@@ -358,9 +299,14 @@ public class MyActivity extends Activity implements MainListFragment.OnListClick
             ((TextView) findViewById(R.id.titleView)).setText(name);
             ((TextView) findViewById(R.id.detailView)).setText(info);
 
-
+            /* -- ORIGINAL CREATE FILE METHOD CALL
             // save information displayed to local storage file
             createFile(name, info);
+            */
+
+            // Assign context to helper class & run method
+            Helper createFile = new Helper(this);
+            createFile.createFile(name, info);
 
         }
 
@@ -370,7 +316,12 @@ public class MyActivity extends Activity implements MainListFragment.OnListClick
             ((TextView) findViewById(R.id.detailView)).setText("\nQuery: " + city +
                     "\nResult: No location found. Please search again.");
 
-            readFile(name);
+            // ORIGINAL READFILE METHOD CALL
+            // readFile(name);
+
+            // Assign context to helper class & run method
+            Helper readFile = new Helper(this);
+            readFile.readFile(name);
 
 
         }
