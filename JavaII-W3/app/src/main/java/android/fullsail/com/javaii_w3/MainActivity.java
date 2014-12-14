@@ -3,16 +3,21 @@ package android.fullsail.com.javaii_w3;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
+import android.fullsail.com.javaii_w3.dataclass.Contact;
 import android.fullsail.com.javaii_w3.fragment.MainListFragment;
-import android.fullsail.com.javaii_w3.fragment.MenuFragment;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
 
-public class MainActivity extends Activity implements MainListFragment.OnListClickListener {
+
+public class MainActivity extends Activity implements MainListFragment.ContactListener {
 
     final String TAG = "DEBUGGING";
+
+    private ArrayList<Contact> mContactDataList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,15 +28,12 @@ public class MainActivity extends Activity implements MainListFragment.OnListCli
         // ensure there is no saved instance & initiate fragment views
         if (savedInstanceState == null) {
 
-            // menu view fragment
-            MenuFragment menuFrag = MenuFragment.newInstance();
+            // create fragment
             getFragmentManager().beginTransaction()
-                    .replace(R.id.menu_fragment, menuFrag, MainListFragment.TAG).commit();
+                    .add(R.id.container, new MainListFragment())
+                    .commit();
 
-            // list view fragment
-            MainListFragment listFrag = MainListFragment.newInstance();
-            getFragmentManager().beginTransaction()
-                    .replace(R.id.list_fragment, listFrag, MainListFragment.TAG).commit();
+
 
             /*
             // setup fragment manager for display view
@@ -47,8 +49,18 @@ public class MainActivity extends Activity implements MainListFragment.OnListCli
         }
 
 
+        mContactDataList = new ArrayList<Contact>();
+        mContactDataList.add(new Contact("Test 1","test@fullsail.com"));
+        mContactDataList.add(new Contact("Test 2","test@fullsail.com"));
+        mContactDataList.add(new Contact("Test 3","test@fullsail.com"));
+        mContactDataList.add(new Contact("Test 4","test@fullsail.com"));
+        mContactDataList.add(new Contact("Test 5","test@fullsail.com"));
+
+
+
 
     }
+
 
 
     @Override
@@ -69,4 +81,28 @@ public class MainActivity extends Activity implements MainListFragment.OnListCli
         }
         return super.onOptionsItemSelected(item);
     }
+
+    // TODO - CREATE RESULT HANDLING METHOD
+
+    // INTERFACE METHODS
+
+    public void viewContact (int position){
+        //TODO - CREATE DETAIL INTENT
+        Intent detailIntent = new Intent(this, DetailActivity.class);
+        detailIntent.putExtra(DetailActivity.CONTACTEXTRA, mContactDataList.get(position));
+        startActivity(detailIntent);
+
+    }
+
+    public void deleteContact (int position){
+        //TODO - CREATE DETAIL INTENT
+
+    }
+
+    @Override
+    public ArrayList<Contact> getContacts() {
+        return mContactDataList;
+    }
+
+
 }

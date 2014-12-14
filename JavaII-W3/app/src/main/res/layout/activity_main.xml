@@ -7,22 +7,25 @@
     android:weightSum="1"
     android:id="@+id/container">
 
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/menu_fragment"
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:textSize="15pt"
+        android:textAlignment="center"
+        android:layout_weight=".05"/>
+
+    <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight=".1"
-        android:background="#ff280bff">
-
-    </FrameLayout>
-
+        android:text="ADD NEW CONTACT"
+        android:layout_weight=".05"/>
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/list_fragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight=".9"
-        android:background="#ff5cff6f">
+        android:layout_weight=".9">
 
     </FrameLayout>
 
