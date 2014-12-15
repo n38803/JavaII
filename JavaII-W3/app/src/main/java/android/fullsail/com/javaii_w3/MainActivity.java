@@ -125,13 +125,7 @@ public class MainActivity extends Activity implements MainListFragment.ContactLi
     }
 
 
-
-
-
-
     //INTERFACE METHODS
-
-
 
     @Override
     public void viewContact(int position){
