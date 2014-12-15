@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public class MainActivity extends Activity implements MainListFragment.ContactLi
 
     public static final int DELETEREQUEST = 1;
     public static final String DELETECONTACTEXTRA = "android.fullsail.com.javaii_w3.Delete";
+    public static final int REQUESTCODE = 100;
 
     private ArrayList<Contact> mContactDataList;
     private Button addButton;
@@ -57,7 +59,14 @@ public class MainActivity extends Activity implements MainListFragment.ContactLi
     }
 
 
+    public void onClick(View v){
 
+        Intent addIntent = new Intent(MainActivity.this, AddActivity.class);
+       // addIntent.putExtra("contactName", mContactDataList.get());
+        startActivityForResult(addIntent, REQUESTCODE);
+
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -83,6 +92,15 @@ public class MainActivity extends Activity implements MainListFragment.ContactLi
             mContactDataList.remove(data.getIntExtra(DELETECONTACTEXTRA,0));
             MainListFragment mf = (MainListFragment) getFragmentManager().findFragmentById(R.id.container);
             mf.updateListData();
+        }
+
+        if(requestCode == REQUESTCODE && resultCode == RESULT_OK){
+            String cName = data.getStringExtra("contactName");
+            String action = data.getStringExtra("action");
+
+            if (action.equals("add")){
+                Toast.makeText(this, cName + " added to Contacts.", Toast.LENGTH_LONG).show();
+            }
         }
     }
 

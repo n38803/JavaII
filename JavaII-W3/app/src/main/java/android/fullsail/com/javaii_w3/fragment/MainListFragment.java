@@ -91,4 +91,7 @@ public class MainListFragment extends Fragment {
         BaseAdapter contactAdapter = (BaseAdapter) contactList.getAdapter();
         contactAdapter.notifyDataSetChanged();
     }
+
+
+
 }
