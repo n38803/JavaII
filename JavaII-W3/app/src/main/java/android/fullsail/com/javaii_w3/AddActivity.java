@@ -2,6 +2,7 @@ package android.fullsail.com.javaii_w3;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.fullsail.com.javaii_w3.dataclass.Contact;
 import android.fullsail.com.javaii_w3.fragment.AddFragment;
 import android.os.Bundle;
 import android.view.Menu;
@@ -9,14 +10,23 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 
 /**
  * Created by Shaun on 12/14/2014.
  */
 public class AddActivity extends Activity  {
 
-    private TextView inputName;
-    private TextView inputEmail;
+    public TextView inputName;
+    public TextView inputEmail;
+    public TextView inputLocation;
+
+    public String cName;
+    public String cEmail;
+    public String cLocation;
+
+    private ArrayList<Contact> mContactDataList;
 
 
     @Override
@@ -41,29 +51,50 @@ public class AddActivity extends Activity  {
         }
 
 
-        inputName = (TextView) findViewById(R.id.inputName);
-        inputEmail = (TextView) findViewById(R.id.inputEmail);
+
 
     }
 
     public void onCancel(View v){
         clearDisplay();
-        //finish();
+        finish();
 
 
     }
 
     public void onSave(View v){
+        inputName = (TextView) findViewById(R.id.inputName);
+        inputEmail = (TextView) findViewById(R.id.inputEmail);
+        inputLocation = (TextView) findViewById(R.id.inputLocation);
 
-        String cName = inputName.getText().toString();
-        String cEmail = inputName.getText().toString();
+        // assign input to variables
+        cName = inputName.getText().toString();
+        cEmail = inputEmail.getText().toString();
+        cLocation = inputLocation.getText().toString();
+
+        // save variables to contact object
+        //mContactDataList = new ArrayList<Contact>();
+       // mContactDataList.add(new Contact(cName, cEmail, cLocation));
+
+        Intent intent = new Intent();
+        intent.putExtra("contactName", cName);
+        intent.putExtra("contactLocation", cLocation);
+        intent.putExtra("contactEmail", cEmail);
+        intent.putExtra("action", "add");
+        setResult(RESULT_OK, intent);
+
         clearDisplay();
+        finish();
 
 
 
     }
 
     private void clearDisplay(){
+        inputName = (TextView) findViewById(R.id.inputName);
+        inputEmail = (TextView) findViewById(R.id.inputEmail);
+        inputLocation = (TextView) findViewById(R.id.inputLocation);
+
         inputName.setText("");
         inputEmail.setText("");
     }
@@ -88,13 +119,5 @@ public class AddActivity extends Activity  {
         return super.onOptionsItemSelected(item);
     }
 
-    public void saveContact(MenuItem item){
-        Intent intent = new Intent();
-        intent.putExtra("name", "item");
-        intent.putExtra("action", "add");
-        setResult(RESULT_OK, intent);
-        finish();
-
-    }
 
 }

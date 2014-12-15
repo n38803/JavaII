@@ -56,6 +56,9 @@ public class DetailFragment extends Fragment{
         TextView nameView = (TextView) getView().findViewById(R.id.contactName);
         nameView.setText(mListener.getContact().getName());
 
+        TextView locationView = (TextView) getView().findViewById(R.id.contactLocation);
+        locationView.setText(mListener.getContact().getLocation());
+
         TextView emailView = (TextView) getView().findViewById(R.id.contactEmail);
         emailView.setText(mListener.getContact().getEmail());
 

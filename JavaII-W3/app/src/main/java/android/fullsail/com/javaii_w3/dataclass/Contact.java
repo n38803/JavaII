@@ -8,16 +8,19 @@ import java.io.Serializable;
 public class Contact implements Serializable {
 
     private String mName;
+    private String mLocation;
     private String mEmail;
 
     public Contact(){
         mName = "";
+        mLocation = "";
         mEmail = "";
 
     }
 
-    public Contact(String first, String email){
-        mName = first;
+    public Contact(String name, String location, String email){
+        mName = name;
+        mLocation = location;
         mEmail = email;
 
     }
@@ -25,12 +28,18 @@ public class Contact implements Serializable {
     public String getName() {
         return mName;
     }
+    public String getLocation() {
+        return mLocation;
+    }
     public String getEmail() {
         return mEmail;
     }
 
     public void setName(String mName) {
         this.mName = mName;
+    }
+    public void setLocation(String mLocation) {
+        this.mLocation = mLocation;
     }
     public void setEmail(String mEmail) {
         this.mEmail = mEmail;

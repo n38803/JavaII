@@ -25,10 +25,11 @@ public class MainActivity extends Activity implements MainListFragment.ContactLi
 
     public static final int DELETEREQUEST = 1;
     public static final String DELETECONTACTEXTRA = "android.fullsail.com.javaii_w3.Delete";
-    public static final int REQUESTCODE = 100;
+    public static final String ADDCONTACTEXTRA = "android.fullsail.com.javaii_w3.Add";
+    public static final int ADDREQUEST = 2;
 
     private ArrayList<Contact> mContactDataList;
-    private Button addButton;
+    public Button addButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,11 +45,11 @@ public class MainActivity extends Activity implements MainListFragment.ContactLi
 
         // static population of data
         mContactDataList = new ArrayList<Contact>();
-        mContactDataList.add(new Contact("Position 0", "test@test.com"));
-        mContactDataList.add(new Contact("Position 1", "test@test.com"));
-        mContactDataList.add(new Contact("Position 2", "test@test.com"));
-        mContactDataList.add(new Contact("Position 3", "test@test.com"));
-        mContactDataList.add(new Contact("Position 4", "test@test.com"));
+        mContactDataList.add(new Contact("Position 0", "Location", "test@test.com"));
+        mContactDataList.add(new Contact("Position 1", "Location", "test@test.com"));
+        mContactDataList.add(new Contact("Position 2", "Location", "test@test.com"));
+        mContactDataList.add(new Contact("Position 3", "Location", "test@test.com"));
+        mContactDataList.add(new Contact("Position 4", "Location", "test@test.com"));
 
         addButton = (Button) findViewById(R.id.addButton);
 
@@ -62,8 +63,9 @@ public class MainActivity extends Activity implements MainListFragment.ContactLi
     public void onClick(View v){
 
         Intent addIntent = new Intent(MainActivity.this, AddActivity.class);
-       // addIntent.putExtra("contactName", mContactDataList.get());
-        startActivityForResult(addIntent, REQUESTCODE);
+        //addIntent.putExtra("contactName", mContactDataList.get());
+        startActivityForResult(addIntent, ADDREQUEST);
+        //startActivity(addIntent);
 
 
     }
@@ -94,12 +96,22 @@ public class MainActivity extends Activity implements MainListFragment.ContactLi
             mf.updateListData();
         }
 
-        if(requestCode == REQUESTCODE && resultCode == RESULT_OK){
-            String cName = data.getStringExtra("contactName");
+        if(requestCode == ADDREQUEST && resultCode == RESULT_OK){
+            String rName = data.getStringExtra("contactName");
+            String rLocation = data.getStringExtra("contactLocation");
+            String rEmail = data.getStringExtra("contactEmail");
             String action = data.getStringExtra("action");
 
+            mContactDataList.add(new Contact(rName, rLocation, rEmail));
+
+
+            MainListFragment nf = (MainListFragment) getFragmentManager().findFragmentById(R.id.container);
+            nf.updateListData();
+
             if (action.equals("add")){
-                Toast.makeText(this, cName + " added to Contacts.", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, rName + " added to Contacts.", Toast.LENGTH_LONG).show();
+
+
             }
         }
     }
