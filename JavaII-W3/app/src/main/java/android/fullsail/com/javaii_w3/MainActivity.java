@@ -8,6 +8,7 @@ import android.fullsail.com.javaii_w3.dataclass.Contact;
 import android.fullsail.com.javaii_w3.fragment.MainListFragment;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,13 +16,21 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 
 public class MainActivity extends Activity implements MainListFragment.ContactListener {
 
     private final String TAG = "MAINACTIVITY";
+    private final String contactFile = "JavaIIContacts.txt";
+
 
     public static final int DELETEREQUEST = 1;
     public static final String DELETECONTACTEXTRA = "android.fullsail.com.javaii_w3.Delete";
@@ -42,13 +51,9 @@ public class MainActivity extends Activity implements MainListFragment.ContactLi
                     .commit();
         }
 
-        // static population of data
-        mContactDataList = new ArrayList<Contact>();
-        mContactDataList.add(new Contact("Position 0", "Location", "test@test.com"));
-        mContactDataList.add(new Contact("Position 1", "Location", "test@test.com"));
-        mContactDataList.add(new Contact("Position 2", "Location", "test@test.com"));
-        mContactDataList.add(new Contact("Position 3", "Location", "test@test.com"));
-        mContactDataList.add(new Contact("Position 4", "Location", "test@test.com"));
+
+
+        readFile();
 
         addButton = (Button) findViewById(R.id.addButton);
 
@@ -93,6 +98,8 @@ public class MainActivity extends Activity implements MainListFragment.ContactLi
             mContactDataList.remove(data.getIntExtra(DELETECONTACTEXTRA,0));
             MainListFragment mf = (MainListFragment) getFragmentManager().findFragmentById(R.id.container);
             mf.updateListData();
+
+            writeFile();
         }
 
         if(requestCode == ADDREQUEST && resultCode == RESULT_OK){
@@ -106,6 +113,8 @@ public class MainActivity extends Activity implements MainListFragment.ContactLi
 
             MainListFragment nf = (MainListFragment) getFragmentManager().findFragmentById(R.id.container);
             nf.updateListData();
+
+            writeFile();
 
             if (action.equals("add")){
                 Toast.makeText(this, rName + " added to Contacts.", Toast.LENGTH_LONG).show();
@@ -149,4 +158,47 @@ public class MainActivity extends Activity implements MainListFragment.ContactLi
     public ArrayList<Contact> getContacts() {
         return mContactDataList;
     }
+
+    // Creates local storage file
+    private void writeFile() {
+
+        try {
+            FileOutputStream fos = openFileOutput(contactFile, this.MODE_PRIVATE);
+
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(mContactDataList);
+            Log.i(TAG, "Object Saved Successfully");
+            oos.close();
+
+        } catch (Exception e) {
+            Log.e(TAG, "Save Unsuccessful");
+        }
+
+
+    }
+
+    private void readFile() {
+
+
+        try {
+            FileInputStream fin = openFileInput(contactFile);
+            ObjectInputStream oin = new ObjectInputStream(fin);
+            mContactDataList = (ArrayList<Contact>) oin.readObject();
+            oin.close();
+
+        } catch(Exception e) {
+            Log.e(TAG, "There are no files to pull");
+
+            Toast.makeText(this, "No data Saved - Static information Populated.", Toast.LENGTH_LONG).show();
+
+            // static population of data
+            mContactDataList = new ArrayList<Contact>();
+            mContactDataList.add(new Contact("Freddie Stetser", "Stratford, NJ", "freddie@joke.com"));
+            mContactDataList.add(new Contact("George Williams", "Milford, DE", "george@test.com"));
+            mContactDataList.add(new Contact("Ray Thompson", "Philadelphia, PA", "ray@123.com"));
+            mContactDataList.add(new Contact("Steven Enstride", "Marlton, NJ", "steve@enstride.com"));
+            mContactDataList.add(new Contact("John Smith", "Nowhere, USA", "johnsmith@mostwanted.com"));
+        }
+    }
+
 }
