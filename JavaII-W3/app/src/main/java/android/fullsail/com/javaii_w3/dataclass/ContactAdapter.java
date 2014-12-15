@@ -43,7 +43,7 @@ public class ContactAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if(convertView == null) {
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.detail_fragment, parent, false);
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.list_item, parent, false);
         }
 
         Contact contact = getItem(position);
@@ -52,5 +52,4 @@ public class ContactAdapter extends BaseAdapter {
 
         return convertView;
     }
-
 }

@@ -1,19 +1,7 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:weightSum="1"
-    android:id="@+id/detailContainer">
-
-
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/detail_fragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </FrameLayout>
-
-
-
-</LinearLayout>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="android.fullsail.com.javaii_w3.DetailActivity"
+    tools:ignore="MergeRootFrame" />

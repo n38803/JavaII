@@ -12,4 +12,7 @@
         <item>Five</item>
     </array>
 
+    <string name="title_activity_detail">DetailActivity</string>
+    <string name="title_activity_add">Add Activity</string>
+
 </resources>

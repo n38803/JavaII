@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="1">
 
@@ -21,21 +22,25 @@
         android:id="@+id/contactEmail"
         android:textAlignment="center"
         android:layout_weight=".8"/>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="EMAIL CONTACT"
-        android:gravity="center"
-        android:layout_weight=".05"/>
-
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="DELETE CONTACT"
         android:gravity="center"
+        android:visibility="invisible"
+        android:id="@+id/deleteButton"
         android:layout_weight=".05"
         android:background="#FF0000"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="EMAIL CONTACT"
+        android:id="@+id/emailButton"
+        android:gravity="center"
+        android:layout_weight=".05"/>
+
+
 
 
 

@@ -21,6 +21,7 @@ public class DisplayFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater _inflater, ViewGroup _container,
                              Bundle _savedInstanceState) {
+
         // Create and return view for this fragment.
         View view = _inflater.inflate(R.layout.display_fragment, _container, false);
         return view;

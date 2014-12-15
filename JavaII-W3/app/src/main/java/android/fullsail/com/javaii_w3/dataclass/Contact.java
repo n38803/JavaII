@@ -5,11 +5,10 @@ import java.io.Serializable;
 /**
  * Created by Shaun on 12/14/2014.
  */
-public class Contact implements Serializable{
+public class Contact implements Serializable {
 
     private String mName;
     private String mEmail;
-
 
     public Contact(){
         mName = "";
@@ -17,25 +16,24 @@ public class Contact implements Serializable{
 
     }
 
-    public Contact (String name, String email){
-        mName = name;
+    public Contact(String first, String email){
+        mName = first;
         mEmail = email;
+
     }
 
-    public String getName(){
+    public String getName() {
         return mName;
     }
-    public String getEmail(){
+    public String getEmail() {
         return mEmail;
     }
 
-    public void setName(String mName){
+    public void setName(String mName) {
         this.mName = mName;
     }
-    public void setEmail(String mEmail){
+    public void setEmail(String mEmail) {
         this.mEmail = mEmail;
     }
 
-
 }
-

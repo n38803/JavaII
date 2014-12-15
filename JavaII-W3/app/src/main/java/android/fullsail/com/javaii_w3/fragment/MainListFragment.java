@@ -1,13 +1,18 @@
 package android.fullsail.com.javaii_w3.fragment;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.app.ListFragment;
+import android.content.Intent;
+import android.fullsail.com.javaii_w3.MainActivity;
 import android.fullsail.com.javaii_w3.R;
 import android.fullsail.com.javaii_w3.dataclass.Contact;
 import android.fullsail.com.javaii_w3.dataclass.ContactAdapter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -17,13 +22,13 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
  * Created by Shaun on 12/14/2014.
  */
-public class MainListFragment extends ListFragment {
-
+public class MainListFragment extends Fragment {
 
     private final String TAG = "MAINFRAGMENT";
 
@@ -53,7 +58,7 @@ public class MainListFragment extends ListFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.list_fragment, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_main, container, false);
         return rootView;
     }
 
@@ -86,5 +91,4 @@ public class MainListFragment extends ListFragment {
         BaseAdapter contactAdapter = (BaseAdapter) contactList.getAdapter();
         contactAdapter.notifyDataSetChanged();
     }
-
 }
