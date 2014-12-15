@@ -45,6 +45,7 @@
         android:layout_height="wrap_content"
         android:text="EMAIL CONTACT"
         android:id="@+id/emailButton"
+        android:onClick="onEmail"
         android:gravity="center"
         android:layout_weight=".05"/>
 

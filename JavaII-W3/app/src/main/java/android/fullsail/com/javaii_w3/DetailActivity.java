@@ -73,6 +73,18 @@ public class DetailActivity extends Activity implements DetailFragment.DetailLis
 
     //INTERFACE METHODS
 
+    public void onEmail(View v){
+
+        Intent email = new Intent(Intent.ACTION_SEND);
+        email.putExtra(Intent.EXTRA_EMAIL, new String[] { mContact.getEmail() });
+        email.putExtra(Intent.EXTRA_SUBJECT, "For " + mContact.getName() + "'s Eyes Only!");
+        email.putExtra(Intent.EXTRA_TEXT, "Hey " + mContact.getName()
+                + ",\n\n I totally forgot that you are from " + mContact.getLocation()
+                + ".  I was thinking that we should get together and catch up sometime!");
+        email.setType("message/rfc822");
+        startActivity(Intent.createChooser(email, "Choose an Email client"));
+    }
+
 
     public Contact getContact() {
         return mContact;

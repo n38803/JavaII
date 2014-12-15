@@ -25,7 +25,6 @@ public class MainActivity extends Activity implements MainListFragment.ContactLi
 
     public static final int DELETEREQUEST = 1;
     public static final String DELETECONTACTEXTRA = "android.fullsail.com.javaii_w3.Delete";
-    public static final String ADDCONTACTEXTRA = "android.fullsail.com.javaii_w3.Add";
     public static final int ADDREQUEST = 2;
 
     private ArrayList<Contact> mContactDataList;
