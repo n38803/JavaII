@@ -2,7 +2,6 @@ package android.fullsail.com.javaii_w4;
 
 import android.app.ActionBar;
 import android.app.Activity;
-import android.app.DialogFragment;
 import android.content.Intent;
 import android.fullsail.com.javaii_w4.dataclass.Item;
 import android.fullsail.com.javaii_w4.fragment.MainListFragment;
@@ -19,15 +18,16 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 
-public class MainActivity extends Activity implements MainListFragment.ContactListener {
+public class MainActivity extends Activity implements MainListFragment.ItemListener {
 
     private final String TAG = "MainActivity";
     public final int ADDREQUEST = 1;
 
     private ArrayList<Item> mItemList;
     public Button addButton;
-    private ActionMode mActionMode;
     private int mItemSelected = -1;
+
+    private ActionMode mActionMode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +54,8 @@ public class MainActivity extends Activity implements MainListFragment.ContactLi
         mItemList.add(new Item("Random Info 2"));
         mItemList.add(new Item("Random Info 3"));
         mItemList.add(new Item("Random Info 4"));
+
+
 
 
 
@@ -107,69 +109,9 @@ public class MainActivity extends Activity implements MainListFragment.ContactLi
     }
 
 
-    // CONTECTUAL ACTION BAR
-    private ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
-
-        // Called when the action mode is created; startActionMode() was called
-        @Override
-        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-            // Inflate a menu resource providing context menu items
-            MenuInflater inflater = mode.getMenuInflater();
-            inflater.inflate(R.menu.actionbar_add, menu);
-            return true;
-        }
-
-        // Called each time the action mode is shown. Always called after onCreateActionMode, but
-        // may be called multiple times if the mode is invalidated.
-        @Override
-        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-            return false; // Return false if nothing is done
-        }
-
-        // Called when the user selects a contextual menu item
-        @Override
-        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-
-            // TODO - SET WHAT HAPPENS WHEN USER CLICKS ITEM
-
-            return false;
-
-        }
-
-        // Called when the user exits the action mode
-        @Override
-        public void onDestroyActionMode(ActionMode mode) {
-            mActionMode = null;
-        }
-    };
 
 
-
-
-
-    // INTERFACE METHODS
-
-    public void viewContact(int position){
-
-        // TODO - ACTION UPON ITEM CLICK
-    }
-
-    public void deleteContact(int position){
-
-        // TODO - delete item selected
-    }
-
-    public void onClick(View v){
-
-        Intent addIntent = new Intent(MainActivity.this, AddActivity.class);
-        //addIntent.putExtra("contactName", mContactDataList.get());
-        //startActivityForResult(addIntent, ADDREQUEST);
-        startActivity(addIntent);
-
-
-    }
-
-    //@Override
+    // INTERFACE METHOD
     public ArrayList<Item> getItems() {
         return mItemList;
     }

@@ -104,48 +104,59 @@ public class AddActivity extends Activity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        AlertDialog.Builder save = new AlertDialog.Builder(this);
-        save.setTitle("Title of alert dialog");
-        save.setIcon(android.R.drawable.ic_dialog_alert);
 
-        // USER ELECTS TO SAVE INFORMATION
-        save.setPositiveButton("Save", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
+        // assign view & input to constant
+        inputItem = (TextView) findViewById(R.id.inputItem);
+        mItem = inputItem.getText().toString();
 
-                // assign view & input to constant
-                inputItem = (TextView) findViewById(R.id.inputItem);
-                mItem = inputItem.getText().toString();
+        switch (item.getItemId()) {
 
-                // pass information to intent
-                Intent intent = new Intent();
-                intent.putExtra("item", mItem);
-                intent.putExtra("action", "add");
-                setResult(RESULT_OK, intent);
+            // IF ADD ICON IS SELECTED
+            case R.id.actionSave:
+
+                AlertDialog.Builder save = new AlertDialog.Builder(this);
+                save.setMessage("Do you wish to save " + mItem + "?");
+                save.setIcon(android.R.drawable.ic_dialog_alert);
+
+                // USER ELECTS TO SAVE INFORMATION
+                save.setPositiveButton("Save", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        // pass information to intent
+                        Intent intent = new Intent();
+                        intent.putExtra("item", mItem);
+                        intent.putExtra("action", "add");
+                        setResult(RESULT_OK, intent);
+
+                        // close current activity
+                        finish();
+
+                    } });
+
+                // USER ELECTS TO DISCARD INFORMATION
+                save.setNegativeButton("Discard", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        // do nothing & exit application
+                        finish();
+
+                    } });
+                save.show();
+
+                break;
+
+            // IF CLEAR ICON IS SELECTED
+            case R.id.actionClear:
+
+                inputItem.setText("");
+
+                break;
+        }
 
 
-                // TODO - CLEAR DISPLAY METHOD
-
-                // close current activity
-                finish();
 
 
 
-            } });
-
-        // USER ELECTS TO DISCARD INFORMATION
-        save.setNegativeButton("Discard", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-
-                // TODO - CLEAR DISPLAY METHOD
-
-                finish();
-
-
-            } });
-        save.show();
 
         int id = item.getItemId();
         if (id == R.id.action_settings) {

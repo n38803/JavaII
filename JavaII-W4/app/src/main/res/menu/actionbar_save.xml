@@ -9,4 +9,10 @@
         android:title="Save this Item"
         android:titleCondensed="Save">
     </item>
+    <item
+        android:id="@+id/actionClear"
+        android:showAsAction="ifRoom|withText"
+        android:title="Clear Input Content"
+        android:titleCondensed="Clear">
+    </item>
 </menu>
