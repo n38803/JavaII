@@ -46,8 +46,9 @@ public class ItemAdapter extends BaseAdapter {
             convertView = LayoutInflater.from(mContext).inflate(R.layout.list_item, parent, false);
         }
 
-        // TODO Do something with grabbed information
-
+        Item item = getItem(position);
+        TextView itemView = (TextView) convertView.findViewById(R.id.listItem);
+        itemView.setText(item.getItem());
 
         return convertView;
     }
