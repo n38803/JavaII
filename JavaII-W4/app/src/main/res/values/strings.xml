@@ -3,6 +3,19 @@
 
     <string name="app_name">JavaII-W4</string>
     <string name="app_summary">The easy way to store useless info!</string>
+    <string name="title_activity_add">Add-Activity</string>
     <string name="action_settings">Settings</string>
+    <array name="staticArray">
+        <item>TEST One</item>
+        <item>TEST Two</item>
+        <item>TEST Three</item>
+        <item>TEST Four</item>
+        <item>TEST Five</item>
+        <item>TEST One</item>
+        <item>TEST Two</item>
+        <item>TEST Three</item>
+        <item>TEST Four</item>
+        <item>TEST Five</item>
+    </array>
 
 </resources>
