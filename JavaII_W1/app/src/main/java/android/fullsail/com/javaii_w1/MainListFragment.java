@@ -27,7 +27,6 @@ public class MainListFragment extends ListFragment {
 
 
 
-
     }
 
     public interface OnListClickListener{
