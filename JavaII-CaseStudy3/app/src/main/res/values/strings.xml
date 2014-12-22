@@ -2,12 +2,59 @@
 <resources>
 
     <string name="app_name">JavaII-CaseStudy3</string>
-    <string name="title_section1">Section 1</string>
-    <string name="title_section2">Section 2</string>
-    <string name="title_section3">Section 3</string>
+    <string name="title_section1">Featured Story</string>
+    <string name="title_section2">Recent Stories</string>
+    <string name="title_section3">Breaking News</string>
+    <string name="title_section4">Settings</string>
+
+    <array name="staticInfo">
+        <item>Recent Story</item><item>Recent Story</item>
+        <item>Recent Story</item><item>Recent Story</item>
+        <item>Recent Story</item><item>Recent Story</item>
+        <item>Recent Story</item><item>Recent Story</item>
+        <item>Recent Story</item><item>Recent Story</item>
+        <item>Recent Story</item><item>Recent Story</item>
+        <item>Recent Story</item><item>Recent Story</item>
+        <item>Recent Story</item><item>Recent Story</item>
+        <item>Recent Story</item><item>Recent Story</item>
+        <item>Recent Story</item><item>Recent Story</item>
+        <item>Recent Story</item><item>Recent Story</item>
+        <item>Recent Story</item><item>Recent Story</item>
+    </array>
+
+    <array name="images">
+        <item>Image Goes Here</item><item>Image Goes Here</item><item>Image Goes Here</item>
+        <item>Image Goes Here</item><item>Image Goes Here</item><item>Image Goes Here</item>
+        <item>Image Goes Here</item><item>Image Goes Here</item><item>Image Goes Here</item>
+        <item>Image Goes Here</item><item>Image Goes Here</item><item>Image Goes Here</item>
+        <item>Image Goes Here</item><item>Image Goes Here</item><item>Image Goes Here</item>
+        <item>Image Goes Here</item><item>Image Goes Here</item><item>Image Goes Here</item>
+    </array>
+
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="action_example">Example action</string>
     <string name="action_settings">Settings</string>
+
+
+    <string name="story">
+        BREAKING STORY - aslkdfja;lskdfja;lskdfja;sldkfj;asldkfja;lsdkfja;ldskfja;ldkfja;
+        ldskfja;ldkfja;lsdkfja;ldkfja;dslkfja;dlkfja;sdlkfja;lsdkfja;dslkfja;sdlkfjasd;lfkjasd;lfkja;dslfkja;
+        sdlkfjads;lfkja;dslfkjas;dlfkjas;dlfkja;dlsfkjasd;flkjasd;flkajsdf;lkajdsf;lkajsdf;lkajsdf;alskfjads;
+        lkfja;sdlkfjas;dlfkja;sdlfkjas;dflkjasdfl;kajsdf;lkajsdf;lkjads;flkjad;lfkjadf;lkajdsf;lkajdsf;alkdjsf;
+        alkdsjfa;lksdjfa;lskdfja;lskdjfa;lksdfj;alksdjfalksdjf;laksdjf;alkdjfsldkfj;asldkfja;lsdkfja;ldskfja;ldkfja;
+        ldskfja;ldkfja;lsdkfja;ldkfja;dslkfja;dlkfja;sdlkfja;lsdkfja;dslkfja;sdlkfjasd;lfkjasd;lfkja;dslfkja;
+        sdlkfjads;lfkja;dslfkjas;dlfkjas;dlfkja;dlsfkjasd;flkjasd;flkajsdf;lkajdsf;lkajsdf;lkajsdf;alskfjads;
+        lkfja;sdlkfjas;dlfkja;sdlfkjas;dflkjasdfl;kajsdf;lkajsdf;lkjads;flkjad;lfkjadf;lkajdsf;lkajdsf;alkdjsf;
+        alkdsjfa;lksdjfa;lskdfja;lskdjfa;lksdfj;alksdjfalksdjf;laksdjf;alkdjfsldkfj;asldkfja;lsdkfja;ldskfja;ldkfja;
+        ldskfja;ldkfja;lsdkfja;ldkfja;dslkfja;dlkfja;sdlkfja;lsdkfja;dslkfja;sdlkfjasd;lfkjasd;lfkja;dslfkja;
+        sdlkfjads;lfkja;dslfkjas;dlfkjas;dlfkja;dlsfkjasd;flkjasd;flkajsdf;lkajdsf;lkajsdf;lkajsdf;alskfjads;
+        lkfja;sdlkfjas;dlfkja;sdlfkjas;dflkjasdfl;kajsdf;lkajsdf;lkjads;flkjad;lfkjadf;lkajdsf;lkajdsf;alkdjsf;
+        alkdsjfa;lksdjfa;lskdfja;lskdjfa;lksdfj;alksdjfalksdjf;laksdjf;alkdjfsldkfj;asldkfja;lsdkfja;ldskfja;ldkfja;
+        ldskfja;ldkfja;lsdkfja;ldkfja;dslkfja;dlkfja;sdlkfja;lsdkfja;dslkfja;sdlkfjasd;lfkjasd;lfkja;dslfkja;
+        sdlkfjads;lfkja;dslfkjas;dlfkjas;dlfkja;dlsfkjasd;flkjasd;flkajsdf;lkajdsf;lkajsdf;lkajsdf;alskfjads;
+        lkfja;sdlkfjas;dlfkja;sdlfkjas;dflkjasdfl;kajsdf;lkajsdf;lkjads;flkjad;lfkjadf;lkajdsf;lkajdsf;alkdjsf;
+        alkdsjfa;lksdjfa;lskdfja;lskdjfa;lksdfj;alksdjfalksdjf;laksdjf;alkdjf
+    </string>
 
 </resources>

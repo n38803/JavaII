@@ -5,9 +5,13 @@ import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.ListFragment;
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -17,6 +21,10 @@ import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 
 public class MainActivity extends Activity
@@ -51,9 +59,42 @@ public class MainActivity extends Activity
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
         FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
-                .commit();
+
+        if (position == 0) {
+
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container, MainStoryFragment.newInstance(position + 1))
+                    .commit();
+
+            Log.i("TEST", "ID: " + position);
+        }
+        else if (position == 1) {
+
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container, RecentFragment.newInstance(position + 1))
+                    .commit();
+
+            Log.i("TEST", "ID: " + position);
+        }
+        else if (position == 2) {
+
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container, ImagesFragment.newInstance(position + 1))
+                    .commit();
+
+            Log.i("TEST", "ID: " + position);
+        }
+        else if (position == 3) {
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container, SettingsFragment.newInstance(position + 1))
+                    .commit();
+
+            Log.i("TEST", "ID: " + position);
+        }
+
+
+
+
     }
 
     public void onSectionAttached(int number) {
@@ -66,6 +107,9 @@ public class MainActivity extends Activity
                 break;
             case 3:
                 mTitle = getString(R.string.title_section3);
+                break;
+            case 4:
+                mTitle = getString(R.string.title_section4);
                 break;
         }
     }
@@ -103,44 +147,38 @@ public class MainActivity extends Activity
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
+    public void onClick(View v) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
 
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
+
+
+        // Grab connectivity manager
+        ConnectivityManager mgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        // Get active network info
+        NetworkInfo netInfo = mgr.getActiveNetworkInfo();
+
+        Method dataMtd = ConnectivityManager.class.getDeclaredMethod("setMobileDataEnabled", boolean.class);
+
+
+
+
+
+        if(netInfo.getType() == ConnectivityManager.TYPE_MOBILE) {
+            dataMtd.setAccessible(false);
+            dataMtd.invoke(mgr, false);
+            Toast.makeText(getApplicationContext(), "Mobile Data Disabled.", Toast.LENGTH_LONG).show();
+
+        }
+        else {
+            dataMtd.setAccessible(true);
+            dataMtd.invoke(mgr, true);
+            Toast.makeText(getApplicationContext(), "Mobile Data Enabled.", Toast.LENGTH_LONG).show();
         }
 
-        public PlaceholderFragment() {
-        }
 
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-            return rootView;
-        }
-
-        @Override
-        public void onAttach(Activity activity) {
-            super.onAttach(activity);
-            ((MainActivity) activity).onSectionAttached(
-                    getArguments().getInt(ARG_SECTION_NUMBER));
-        }
     }
+
+
+
 
 }

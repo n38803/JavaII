@@ -1,0 +1,37 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="1"
+    tools:context=".MainActivity$ImagesFragment">
+
+    <TextView
+        android:id="@+id/title"
+        android:text="BREAKING NEWS"
+        android:textSize="10pt"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_weight=".05"
+        android:layout_height="wrap_content" />
+
+    <GridView
+        android:id="@+id/gridView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:columnWidth="100dp"
+        android:gravity="center"
+        android:numColumns="auto_fit"
+        android:verticalSpacing="5dp"
+        android:drawSelectorOnTop="true"
+        android:stretchMode="columnWidth"
+        android:layout_weight=".95">
+
+    </GridView>
+
+
+
+
+
+</LinearLayout>
